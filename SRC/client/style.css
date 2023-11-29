@@ -1,0 +1,14 @@
+#excel-like-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#excel-like-table, #excel-like-table th, #excel-like-table td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+#deleteButton {
+    margin-top: 10px;
+}
