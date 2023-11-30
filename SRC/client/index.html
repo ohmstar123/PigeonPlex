@@ -9,28 +9,46 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <h1>Hello, World!</h1>
-    </body>
+        <div class="navbar">
+            <div class="left-image logo-img">
+                <img src="img/logo.png" alt="Left Image">
+            </div>
 
-    <table id="excel-like-table">
-        <tr>
-            <th>Select</th>
-            <th>Data 1</th>
-            <th>Data 2</th>
-            <!-- Add more columns as needed -->
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>Item 1</td>
-            <td>Details 1</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>Item 2</td>
-            <td>Details 2</td>
-        </tr>
-        <!-- Add more rows as needed -->
-    </table>
-    
-    <button id="deleteButton">Delete Selected</button>
+            <div class="right-image">
+                <img src="img/accountImg.png" alt="Right Image">
+                <button class="logout-btn">Logout</button>
+            </div>
+        </div>
+        <div class="featured">
+            <div class="movieShowCase">
+                <ul class="moviesList">
+                    <li class="movie">
+                        <img src="img/test.jpg" alt="Movie 1">
+                        <h1>The Dark Knight</h1>
+                    </li>
+                    <li class="movie">
+                        <img src="img/test.jpg" alt="Movie 2">
+                        <h1>Title</h1>
+                    </li>
+                    <li class="movie">
+                        <img src="img/test.jpg" alt="Movie 3">
+                        <h1>Title</h1>
+                    </li>
+                    <li class="movie">
+                        <img src="img/test.jpg" alt="Movie 4">
+                        <h1>Title</h1>
+                    </li>
+                    <li class="movie">
+                        <img src="img/test.jpg" alt="Movie 5">
+                        <h1>Title</h1>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="movieSearch">
+            <h1>Search By Movie Name or Date</h1>
+            <input type="text" name="search" placeholder="Movie Name...">
+            <button class="search-btn">Search</button>
+        </div>
+    </body>
 </html>

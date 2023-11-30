@@ -1,14 +1,122 @@
-#excel-like-table {
-    border-collapse: collapse;
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #2F6690;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-img {
+    order: -1;
+}
+
+.navbar img {
+    height: 50px;
+    vertical-align: middle; /* Align the image vertically in the middle */
+}
+
+.logout-btn{
+    margin: 10px 0;
+    padding: 10px 20px;
+    font-size: 16px;
+    height: 50px;
+    background-color: #81C3D7;
+    color: #16425B;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #3A7CA5;
+}
+
+.right-image img {
+    padding-right: 15px;
+    height: 50px; /* Set the height to match the button */
+}
+
+.featured {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #16425B;
+}
+
+.movieShowCase {
+    padding: 5%;
+}
+
+.moviesList {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0; 
+}
+
+.movie {
+    display: flex;
+    flex-direction: column;
+    width: calc(20% - 20px); 
+    min-width: 200px; /* Set a minimum width for the movie cards */
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #D9DCD6;
+    border-radius: 10px;
+    margin: 10px;
+    min-height: 250px; /* Set a minimum height for the movie cards */
+}
+
+.movie img {
+    max-width: 100%;
+    max-height: 100%; /* Set a maximum height to maintain aspect ratio */
+    height: auto;
+    border-radius: 8px; /* Add rounded corners to the image */
+}
+
+.movieSearch {
+    flex: 1;
+    padding: 5%;
+    text-align: center;
+    background-color: #D9DCD6;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+input {
     width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #16425B;
+    border-radius: 5px;
 }
 
-#excel-like-table, #excel-like-table th, #excel-like-table td {
-    border: 1px solid black;
-    padding: 8px;
-    text-align: left;
+input:focus {
+    outline: none;
+    border-color: #122F41;
+    box-shadow: 0 0 5px rgba(18, 47, 65, 0.5);
 }
 
-#deleteButton {
-    margin-top: 10px;
+button{
+    margin: 10px 0;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #16425B;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #122F41;
 }

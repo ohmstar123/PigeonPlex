@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('img/loginBackgroundImg.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1{
+    color: #16425B;
+}
+
+.blur::before {
+    content: ""; /* Create a pseudo-element */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url('img/loginBackgroundImg.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    z-index: -1; /* Place the pseudo-element behind the content */
+}
+
+.blur {
+    position: relative;
+    width: 40%;
+    height: 60vh;
+    text-align: center;
+    z-index: 1; /* Ensure the content is above the pseudo-element */
+}
+
+.login {
+    border-radius: 25px;
+    position: relative;
+    background-color: #81C3D7;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login h1,
+.login input,
+.login button {
+    margin: 10px 0; /* Add some margin between the components */
+}
+
+.btns{
+    margin: 10px 0;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #16425B;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btns:hover {
+    background-color: #122F41;
+}
+
+.login input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #16425B;
+    border-radius: 5px;
+}
+
+.login input:focus {
+    outline: none;
+    border-color: #122F41;
+    box-shadow: 0 0 5px rgba(18, 47, 65, 0.5);
+}
