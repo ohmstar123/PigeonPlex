@@ -88,7 +88,7 @@ def add_user():
 #         return jsonify({'error': str(e)}, 500)
 
 @app.route('/account', methods=['GET'])
-def add_user():
+def verify_add_user():
     try:
         # retrieve user information from the front end
         data = request.get_json()
@@ -293,7 +293,7 @@ def get_tickets_sold(title):
 
 # with movie title, get all users who bought tickets
 @app.route('/movies/users/<str:title>', methods=['GET'])
-def get_users(title):
+def get_ticket_users(title):
     try:
         query = """SELECT DISTINCT User.username FROM User INNER JOIN Purchase ON User.accountID = Purchase.accountID
         INNER JOIN Movie ON Purchase.movieID = Movie.movieID
@@ -340,7 +340,7 @@ def delete_inactive_users():
 
 # get movie by title
 @app.route('/movies/searchMovieName/<str:title>', methods=['GET'])
-def get_movie(title):
+def get_movie_title(title):
     try:
         query = """SELECT movieID, title, image FROM Movie WHERE title LIKE %s LIMIT 45"""
         cursor.execute(query, (f'%{title}%',))
@@ -398,7 +398,7 @@ def update_duration():
 
 # decrease duration for horror movie by 2 minutes
 @app.route('/movies/updateDuration', methods=['PUT'])
-def update_duration():
+def delete_duration():
     try:
         # update duration query message
         query = """UPDATE Movie SET duration = duration - 2 WHERE genre = 'Horror';"""
@@ -467,14 +467,14 @@ def get_purchases(id):
         return jsonify({'error': str(e)},500)
     
 @app.route('/purchases/refund/<int:purchaseID>', methods=['PUT'])
-def update_user(purchaseID):
+def update_user_refund(purchaseID):
     try:
         # update user query message
         query = """UPDATE Purchase
                 SET date = CONCAT(CURDATE(), ', REFUND')
                 WHERE purchaseID = %s;"""
         
-        cursor.execute(query, purchaseID)
+        cursor.execute(query, (purchaseID,))
         # commit changes
         db.commit()
         # return success message
@@ -487,12 +487,19 @@ def update_user(purchaseID):
 @app.route('/refunds/<int:id>', methods=['GET'])
 def get_refunds(id):
     try:
-        query = """CREATE VIEW RefundView AS
+        query = """DROP VIEW IF EXISTS RefundsView;"""
+        cursor.execute(query)
+
+        query = """CREATE VIEW RefundsView AS
                 SELECT *
                 FROM Purchase
-            WHERE date LIKE '%REFUND%';"""
-        query = """SELECT * FROM Refund WHERE userID = %s;"""
+                WHERE date LIKE '%REFUND%';"""
+        
+        cursor.execute(query)
+
+        query = """SELECT * FROM RefundsView WHERE accountID = %s;"""
         cursor.execute(query, (id,))
+
         result = cursor.fetchall()
         return jsonify(result, 200)
     except Exception as e:
