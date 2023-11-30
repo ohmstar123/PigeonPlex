@@ -1,6 +1,13 @@
+@font-face {
+    font-family: 'YourFontName';
+    src: url('PoetsenOne-Regular.woff') format('woff');
+    font-display: swap;
+}
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'YourFontName', sans-serif;
+    background-color: #16425B;
 }
 
 .navbar {
@@ -9,6 +16,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
 
 .logo-img {
@@ -21,6 +30,7 @@ body {
 }
 
 .logout-btn{
+    font-family: 'YourFontName', sans-serif;
     margin: 10px 0;
     padding: 10px 20px;
     font-size: 16px;
@@ -83,14 +93,15 @@ body {
 
 .movieSearch {
     flex: 1;
-    padding: 5%;
     text-align: center;
-    background-color: #D9DCD6;
-    border-radius: 10px;
-    margin: 10px;
+    background-color: #81C3D7;
+    padding: 20px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
 input {
+    font-family: 'YourFontName', sans-serif;
     width: 100%;
     padding: 10px;
     margin: 8px 0;
@@ -106,6 +117,7 @@ input:focus {
 }
 
 button{
+    font-family: 'YourFontName', sans-serif;
     margin: 10px 0;
     padding: 10px 20px;
     font-size: 16px;
@@ -119,4 +131,8 @@ button{
 
 button:hover {
     background-color: #122F41;
+}
+
+.movieSearch h1 {
+    margin-top: 0;
 }

@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'YourFontName';
+    src: url('PoetsenOne-Regular.woff') format('woff');
+    font-display: swap;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -9,11 +15,13 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: 'YourFontName', sans-serif;
 }
 
 h1{
     color: #16425B;
 }
+
 
 .blur::before {
     content: ""; /* Create a pseudo-element */
@@ -53,6 +61,7 @@ h1{
 .login h1,
 .login input,
 .login button {
+    font-family: 'YourFontName', sans-serif;
     margin: 10px 0; /* Add some margin between the components */
 }
 

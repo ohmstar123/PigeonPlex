@@ -1,0 +1,154 @@
+@font-face {
+    font-family: 'YourFontName';
+    src: url('PoetsenOne-Regular.woff') format('woff');
+    font-display: swap;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #16425B;
+    font-family: 'YourFontName', sans-serif;
+}
+
+.navbar {
+    background-color: #2F6690;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.logo-img {
+    order: -1;
+}
+
+.navbar img {
+    height: 50px;
+    vertical-align: middle; /* Align the image vertically in the middle */
+}
+
+.userInfo{
+    padding: 20px;
+}
+
+button{
+    font-family: 'YourFontName', sans-serif;
+    margin: 10px 0;
+    padding: 10px 20px;
+    font-size: 16px;
+    height: 50px;
+    background-color: #81C3D7;
+    color: #16425B;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #3A7CA5;
+}
+
+.right-image img {
+    padding-right: 15px;
+    height: 50px; /* Set the height to match the button */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+label, h1 {
+    color: #D9DCD6;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #16425B;
+    border-radius: 5px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #122F41;
+    box-shadow: 0 0 5px rgba(18, 47, 65, 0.5);
+}
+
+.save-btn {
+    margin-top: 20px;
+}
+
+.purchase {
+    padding: 20px;
+}
+
+.purchaseList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap; /* Allow multiple rows */
+    justify-content: space-evenly;
+}
+
+.purchase-card {
+    background-color: #2F6690;
+    color: #D9DCD6;
+    border-radius: 10px;
+    padding: 15px;
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex; /* Add this line to enable flexbox */
+    justify-content: space-between; /* Add this line to space out elements evenly */
+}
+
+.purchase-card h3 {
+    margin: 5px 0;
+    white-space: nowrap;
+}
+
+.purchase-card h3:not(:last-child) {
+    margin-right: 10px;
+}
+
+.refund {
+    padding: 20px;
+}
+
+.refundList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap; /* Allow multiple rows */
+    justify-content: space-evenly;
+}
+
+.refund-card {
+    background-color: #D9DCD6;
+    color: #16425B;
+    border-radius: 10px;
+    padding: 15px;
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex; /* Add this line to enable flexbox */
+    justify-content: space-between; /* Add this line to space out elements evenly */
+}
+
+.refund-card h3 {
+    margin: 5px 0;
+    white-space: nowrap;
+}
+
+.refund-card h3:not(:last-child) {
+    margin-right: 10px;
+}

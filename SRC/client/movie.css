@@ -1,0 +1,156 @@
+@font-face {
+    font-family: 'YourFontName';
+    src: url('PoetsenOne-Regular.woff') format('woff');
+    font-display: swap;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #D9DCD6;
+    text-align: center;
+    font-family: 'YourFontName', sans-serif;
+}
+
+.navbar {
+    background-color: #2F6690;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.logo-img {
+    order: -1;
+}
+
+.navbar img {
+    height: 50px;
+    vertical-align: middle; /* Align the image vertically in the middle */
+}
+
+.userInfo {
+    padding: 20px;
+}
+
+button {
+    margin: 10px 0;
+    padding: 10px 20px;
+    font-size: 16px;
+    height: 50px;
+    background-color: #81C3D7;
+    color: #16425B;
+    border: 2px solid #16425B;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'YourFontName', sans-serif;
+}
+
+button:hover {
+    background-color: #3A7CA5;
+}
+
+.right-image img {
+    padding-right: 15px;
+    height: 50px; /* Set the height to match the button */
+}
+
+.container {
+    display: flex;
+    overflow: hidden;
+    background-color: #81C3D7;
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.column {
+    width: 50%;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.column img {
+    width: 100%;
+    max-height: 100%; /* Adjusted to take full height */
+    object-fit: contain;
+}
+
+.tickets {
+    flex: 1;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Style the select container */
+select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    outline: none;
+    font-family: 'YourFontName', sans-serif;
+}
+
+/* Style the options within the select */
+select option {
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+    font-family: 'YourFontName', sans-serif;
+}
+
+/* Style the select when it's focused */
+select:focus {
+    border-color: #2F6690;
+    box-shadow: 0 0 5px rgba(47, 102, 144, 0.5);
+}
+
+h1, h2, h4, p, label {
+    color: #16425B;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 60px; /* Adjust the width as needed */
+    margin: 0 5px;
+    text-align: center;
+    outline: none;
+}
