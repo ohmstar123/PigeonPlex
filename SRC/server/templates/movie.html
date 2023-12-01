@@ -6,37 +6,36 @@
         <meta name="description" content="Movie Theater">
         <meta name="author" content="Sridhar Patel, Ohm Patel, Jeffano John, Aarya Patel">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="movie.css">
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/movie.css') }}">
     </head>
     <body>
         <div class="navbar">
             <div class="left-image logo-img">
-                <img src="img/logo.png" alt="Left Image">
+                <img src="{{ url_for('static',filename='img/logo.png') }}" alt="Left Image" id="logo">
             </div>
-    
             <div class="right-image">
-                <img src="img/accountImg.png" alt="Right Image">
-                <button class="logout-btn">Logout</button>
+                <img src="{{ url_for('static',filename='img/accountImg.png') }}" alt="Right Image" id="account">
+                <button class="logout-btn" id="logout">Logout</button>
             </div>
         </div>
-        <h1>Title</h1>
-        <p>Movie description</p>
+        <h1 id="title">Title</h1>
+        <p id="description">Movie description</p>
         <div class="container">
             <div class="column">
-                <img src="img/test.jpg" alt="Image">
+                <img id="image" src="img/test.jpg" alt="Image">
             </div>
             <div class="column text-column">
-                <h4>Cast</h4>
-                <h4>Director</h4>
-                <h4>Duration</h4>
-                <h4>Genre</h4>
-                <h4>Rating</h4>
-                <h4>Trailer</h4>
+                <h4 id="cast">Cast</h4>
+                <h4 id="director">Director</h4>
+                <h4 id="duration">Duration</h4>
+                <h4 id="genre">Genre</h4>
+                <h4 id="rating">Rating</h4>
+                <h4 id="trailer">Trailer</h4>
                 
                 <div class="tickets">
                     <h2>Available Tickets</h2>
-                    <h2>Date 1: Morning - 50, Afternoon - 50, Evening - 50</h2>
-                    <h2>Date 2: Morning - 50, Afternoon - 50, Evening - 50</h2>
+                    <div id="dates">
+                    </div>
                     <label for="time">Choose a time:</label>
                     <select name="time" id="time">
                         <option value="Morning">Morning</option>
@@ -48,9 +47,10 @@
                         <input type="number" id="input" value="0" readonly>
                         <button id="increment">+</button>
                     </div>
-                    <button class="purchase-btn">Purchase</button>
+                    <button id="purchase" class="purchase-btn">Purchase</button>
                 </div>
             </div>
         </div>
+        <script type="module" src="{{ url_for('static',filename='scripts/movie.js') }}"></script>
     </body>
 </html>

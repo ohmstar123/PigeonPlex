@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+            <title>PigeonPlex</title>
+        <meta name="description" content="Movie Theater">
+        <meta name="author" content="Sridhar Patel, Ohm Patel, Jeffano John, Aarya Patel">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/homePage.css') }}">
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="left-image logo-img">
+                <img src="{{ url_for('static',filename='img/logo.png') }}" alt="Left Image" id="logo">
+            </div>
+            <div class="right-image">
+                <img src="{{ url_for('static',filename='img/accountImg.png') }}" alt="Right Image" id="account">
+                <button class="logout-btn" id="logout">Logout</button>
+            </div>
+        </div>
+        <div class="featured">
+            <div class="movieShowCase">
+                <ul class="moviesList" id="moviesList">
+                </ul>
+            </div>
+        </div>
+        <div class="movieSearch">
+            <h1>Search By Movie Name or Date</h1>
+            <input type="text" name="search" id="movieSearch" placeholder="Movie Name...">
+            <h2>Or</h2>
+            <input type="date" id="movieDate" name="movieDate">
+            <button class="search-btn" id="searchBtn">Search</button>
+
+            <div class="movieShowCase">
+                <ul class="moviesListOutput" id="moviesListOutput">
+                </ul>
+            </div>
+        </div>
+        <script type="module" src="{{ url_for('static',filename='scripts/homePage.js') }}"></script>
+    </body>
+</html>

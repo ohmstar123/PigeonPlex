@@ -6,7 +6,7 @@
         <meta name="description" content="Movie Theater">
         <meta name="author" content="Sridhar Patel, Ohm Patel, Jeffano John, Aarya Patel">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="login.css">
+        <link rel="stylesheet" href="{{ url_for('static',filename='styles/login.css') }}">
     </head>
     <body>
         <div class="blur">
@@ -15,9 +15,9 @@
                 <input type="text" name="username" id="uName" placeholder="Username" required="required" />
                 <input type="password" name="password" id="password" placeholder="Password" required="required" />
                 <button type="submit" id="loginBtn" class="btns">Login</button>
-                <button type="submit" id="signUpBtn" class="btns">Sign Up</button>
+                <a href="{{ url_for('index') }}"></a><button type="submit" id="signUpBtn" class="btns">Sign Up</button></a>
             </div>
         </div>
+        <script type="module" src="{{ url_for('static',filename='scripts/login.js') }}"></script>
     </body>
-    <script src="login.js"></script>
 </html>

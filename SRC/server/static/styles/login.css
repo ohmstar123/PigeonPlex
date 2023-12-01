@@ -7,7 +7,6 @@
 body {
     margin: 0;
     padding: 0;
-    background-image: url('img/loginBackgroundImg.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
@@ -22,7 +21,6 @@ h1{
     color: #16425B;
 }
 
-
 .blur::before {
     content: ""; /* Create a pseudo-element */
     position: fixed;
@@ -30,7 +28,6 @@ h1{
     right: 0;
     bottom: 0;
     left: 0;
-    background-image: url('img/loginBackgroundImg.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;

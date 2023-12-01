@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PigeonPlex - Admin</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/admin.css') }}">
+    <script src="admin.js"></script>
+</head>
+
+<div class="header">
+    <h1>ADMIN</h1>
+    <button id="logout" class="logout-button">LOG OUT</button>
+</div>
+
+<div class="container">
+    <h2>Movies List</h2>
+    <label>Find Movie:</label>
+    <input class="search-field" type="text" id="movie-title">
+    <button class="search-button" id="search-movie">SEARCH</button>
+
+    <div class="scrollable-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Movie ID</th>
+                    <th>Movie Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>05-10-2023</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="additional-feautes">
+        <label>Total Sales of MovieID:</label>
+        <input class="search-field" type="text" id="userName">
+        <button class="search-button" id="view-sales">VIEW</button>
+        <div class="scrollable-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Movie Name</th>
+                        <th>Total Sales ($)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Avengers</td>
+                        <td>200,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div class="additional-feautes">
+        <label>Users List Per Movie Purchase:</label>
+        <input class="search-field" type="text" id="listView">
+        <button class="search-button" id="view-list">VIEW</button>
+        <div class="scrollable-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bill</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<div class="container">
+    <h2>Add Movie</h2>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="movie-title">Title:</label>
+            <input class="addMovie-field" type="text" id="movie-title">
+        </div>
+        <div class="form-group">
+            <label for="movie-genre">Genre:</label>
+            <input class="addMovie-field" type="text" id="movie-genre">
+        </div>
+        <div class="form-group">
+            <label for="movie-description">Description:</label>
+            <input class="addMovie-field" type="text" id="movie-description">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="movie-director">Director:</label>
+            <input class="addMovie-field" type="text" id="movie-director">
+        </div>
+        <div class="form-group">
+            <label for="movie-cast">Cast:</label>
+            <input class="addMovie-field" type="text" id="movie-cast">
+        </div>
+        <div class="form-group">
+            <label for="movie-duration">Duration:</label>
+            <input class="addMovie-field" type="text" id="movie-duration">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="movie-rating">Rating:</label>
+            <input class="addMovie-field" type="text" id="movie-rating">
+        </div>
+        <div class="form-group">
+            <label for="movie-trailer">Trailer:</label>
+            <input class="addMovie-field" type="text" id="movie-trailer">
+        </div>
+        <div class="form-group">
+            <label for="movie-image">Image:</label>
+            <input class="addMovie-field" type="text" id="movie-image">
+        </div>
+    </div>
+
+    <button class="add-button" id="add-movie">ADD</button>
+</div>
+
+<div class="container">
+    <h2>Manage Schedule</h2>
+
+    <div class="schedule-functions">
+        <h3>Add Schedule</h2>
+            <div class="schedule-row">
+                <div class="form-group">
+                    <label>Movie ID:</label>
+                    <input class="movieID-field" type="text" id="movie-id">
+                </div>
+
+                <div class="schedule-group">
+                    <label>Date:</label>
+                    <input type="date" class="date-format" id="add-movie-date">
+                </div>
+            </div>
+
+            <button class="add-button" id="add-schedule">ADD</button>
+    </div>
+
+    <div class="schedule-functions">
+        <h3>Delete Schedule</h2>
+            <label>Enter Movie ID:</label>
+            <input class="search-field" type="text" id="search-movie-id">
+            <button class="search-button" id="get-movie-id">SEARCH</button>
+
+            <div class="scrollable-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Select</th> <!-- Checkbox header -->
+                            <th>Schedule ID</th>
+                            <th>Movie Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox" name="match" value="1"></td>
+                            <td>1</td>
+                            <td>05-10-2023</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <button class="add-button" id="delete-schedule">DELETE</button>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Users</h2>
+
+    <div>
+        <label>View Users List:</label>
+        <button class="search-button" id="deleteUsers">VIEW</button>
+    </div>
+
+    <div class="displayTotalCount">
+        <label>Total Count:</label>
+    </div>
+
+
+    <div class="scrollable-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>UserID</th>
+                    <th>Username</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>jamesmiller</td>
+                    <td>James</td>
+                    <td>Miller</td>
+                    <td>jamesmiller@gmail.com</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <label>Delete User:</label>
+    <input class="search-field" type="text" id="userName">
+    <button class="search-button" id="delete-user">DELETE</button>
+
+    <div class="additional-feautes">
+        <div>
+            <label>Delete Inactive Users:</label>
+            <button class="search-button" id="deleteUsers">DELETE</button>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="container">
+    <h2>Additional Features</h2>
+
+
+
+
+    <div class="additional-feautes">
+        <label>Public Service Announcement Addition:</label>
+        <button class="search-button" id="addAnnouncement">ADD</button>
+    </div>
+
+    <div class="additional-feautes">
+        <label>Public Service Announcement Deletion:</label>
+        <button class="search-button" id="deleteAnnouncement">DELETE</button>
+    </div>
+
+</div>
+
+</html>
