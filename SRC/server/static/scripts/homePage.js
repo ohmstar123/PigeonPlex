@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', loadData)
 document.getElementById("searchBtn").addEventListener('click', search)
 document.getElementById("logo").addEventListener('click', loadData)
 document.getElementById("account").addEventListener('click', () => {
+    localStorage.setItem("signUp", "false");
     window.location.href = "/account"
 })
 

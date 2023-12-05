@@ -20,9 +20,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var deleteScheduleMovieID = document.getElementById('search-movie-id').value;
     var deleteUserUsername = document.getElementById('userName').value; // Note: This ID is used for multiple purposes. Ensure unique IDs.
 
-
-    
-
     // Event listener for LOG OUT button
     document.querySelector('.logout-button').addEventListener('click', function () {
         logout();

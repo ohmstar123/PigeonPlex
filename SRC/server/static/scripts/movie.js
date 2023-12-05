@@ -2,12 +2,16 @@ let movieID = localStorage.getItem("movieID");
 let accountID = localStorage.getItem("accountID");
 
 let seats = [];
+let morningSeats = 0;
+let afternoonSeats = 0;
+let eveningSeats = 0;
 
 document.getElementById("logo").addEventListener('click', () => {
     window.location.href = "/homePage"
 })
 
 document.getElementById("account").addEventListener('click', () => {
+    localStorage.setItem("signUp", "false");
     window.location.href = "/account"
 })
 
@@ -15,75 +19,85 @@ document.getElementById("logout").addEventListener('click', () => {
     window.location.href = "/login"
 })
 
-document.getElementById("purchase").addEventListener('click', () => {
+document.getElementById("purchase").addEventListener('click', async () => {
     let selectedTime = document.getElementById("time").value;
     let tickets = document.getElementById("input").value;
     let amount = tickets * 10;
-    if (selectedTime === "Morning"){
-        if (tickets > seats[1]){
-            alert("Not enough seats available");
-            return;
+    try {
+        if (selectedTime === "Morning"){
+            if (tickets > seats[1]){
+                alert("Not enough seats available");
+                return;
+            }
+            await fetch(`/purchases/buyTicket/${accountID}/${movieID}/${seats[0]}/morning/${amount}`)
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+            
+            await fetch(`/schedule/removeSeat/${movieID}/${amount}/${seats[0]}/morning`)
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
         }
-        fetch(`/purchases/buyTicket/${accountID}/${movieID}/${seats[0]}/morning/${amount}`)
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-        fetch(`/schedule/removeSeat/${movieID}/${amount}/${seats[0]}/morning`)
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+        else if (selectedTime === "Afternoon"){
+            if (tickets > seats[2]){
+                alert("Not enough seats available");
+                return;
+            }
+            await fetch(`/purchases/buyTicket/${accountID}/${movieID}/${seats[0]}/afternoon/${amount}`)
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+            
+            await fetch(`/schedule/removeSeat/${movieID}/${amount}/${seats[0]}/afternoon`)
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        }
+        else if (selectedTime === "Evening"){
+            if (tickets > seats[3]){
+                alert("Not enough seats available");
+                return;
+            }
+            await fetch(`/purchases/buyTicket/${accountID}/${movieID}/${seats[0]}/evening/${amount}`)
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+            
+            await fetch(`/schedule/removeSeat/${movieID}/${amount}/${seats[0]}/evening`)
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        }
+
+        loadData();
     }
-    else if (selectedTime === "Afternoon"){
-        if (tickets > seats[2]){
-            alert("Not enough seats available");
-            return;
-        }
-        fetch(`/purchases/buyTicket/${accountID}/${movieID}/${seats[0]}/afternoon/${amount}`)
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-        fetch(`/schedule/removeSeat/${movieID}/${amount}/${seats[0]}/afternoon`)
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    }
-    else if (selectedTime === "Evening"){
-        if (tickets > seats[3]){
-            alert("Not enough seats available");
-            return;
-        }
-        fetch(`/purchases/buyTicket/${accountID}/${movieID}/${seats[0]}/evening/${amount}`)
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-        fetch(`/schedule/removeSeat/${movieID}/${amount}/${seats[0]}/evening`)
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+    catch (error) {
+        console.log(error);
     }
 })
 
@@ -104,22 +118,38 @@ function get() {
 const inc = document.getElementById("increment");
 const input = document.getElementById("input");
 const dec = document.getElementById("decrement");
+const time = document.getElementById("time");
 
 inc.addEventListener("click", () => {
-  increment();
-  input.value = get();
+    if (time.value === "Morning"){
+        if (input.value < morningSeats) {
+            increment();
+        }
+    }
+    else if (time.value === "Afternoon"){
+        if (input.value < afternoonSeats) {
+            increment();
+        }
+    }
+    else if (time.value === "Evening"){
+        if (input.value < eveningSeats) {
+            increment();
+        }
+    }
+    input.value = get();
 });
 
 dec.addEventListener("click", () => {
-  if (input.value > 0) {
-    decrement();
-  }
-  input.value = get();
+    if (input.value > 0) {
+        decrement();
+    }
+    input.value = get();
 });
 
 document.addEventListener('DOMContentLoaded', loadData)
 
 function loadData() {
+    console.log(movieID);
     fetch(`/movies/info&Schedule/${movieID}`)
     .then((res) => res.json())
     .then((data) => {
@@ -151,9 +181,15 @@ function loadData() {
         let dateText = dateAmount.split(" ");
         seats.push(dateText[0]);
         seats.push(data[0][0][11]);
+        morningSeats = data[0][0][11];
         seats.push(data[0][0][12]);
+        afternoonSeats = data[0][0][12];
         seats.push(data[0][0][13]);
+        eveningSeats = data[0][0][13];
         date.textContent = `${dateText[0]}: Morning: ${data[0][0][11]}, Afternoon: ${data[0][0][12]}, Evening: ${data[0][0][13]}`;
+        if (datesDiv.hasChildNodes()){
+            datesDiv.removeChild(datesDiv.childNodes[0]);
+        }
         datesDiv.appendChild(date);
     })
     .catch((error) => {

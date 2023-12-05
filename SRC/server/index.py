@@ -115,33 +115,24 @@ def verify_add_user(userName, passWord):
 @app.route('/users/getInfo/<id>', methods=['GET'])
 def get_user(id):
     try:
-        query = """SELECT * FROM User WHERE userID = %s;"""
+        query = """SELECT * FROM User WHERE accountID = %s;"""
         cursor.execute(query, (id,))
-        result = cursor.fetchall()
+        result = cursor.fetchone()
         return jsonify(result, 200)
     except Exception as e:
         # return error message
         return jsonify({'error': str(e)},500)
 
 # update user account by name
-@app.route('/users/updateInfo/<username>', methods=['PUT'])
-def update_user(username):
+@app.route('/users/updateInfo/<accountID>/<password>/<email>/<phoneNumber>/<cardNumber>/<cardExpiry>/<cvv>', methods=['GET'])
+def update_user(accountID, password, email, phoneNumber, cardNumber, cardExpiry, cvv):
     try:
-        # retrieve user information from the front end
-        data = request.get_json()
-
-        # extract user details
-        password = data.get('password')
-        contact = data.get('contactNumber')
-        cardNumber = data.get('cardNumber')
-        cardExpiry = data.get('cardExpiry')
-        cvv = data.get('cvv')
 
         # update user query message
         query = """UPDATE User 
-        SET password = %s, contact = %s, cardNumber = %s, cardExpiry = %s, cvv = %s
-        WHERE username = %s;"""
-        values = (password,contact, cardNumber, cardExpiry, cvv, username)
+        SET password = %s, contactNumber = %s, email = %s, cardNumber = %s, cardExpiry = %s, cvv = %s
+        WHERE accountID = %s;"""
+        values = (password, phoneNumber, email, cardNumber, cardExpiry, cvv, accountID)
         cursor.execute(query, values)
 
         # commit changes
@@ -504,6 +495,7 @@ def get_purchases(id):
                 (SELECT title FROM Movie WHERE Movie.movieID = Purchase.movieID) AS movieName
                 FROM Purchase
                 WHERE accountID = %s AND date NOT LIKE '%REFUND%';"""
+        
         cursor.execute(query, (id,))
         result = cursor.fetchall()
         return jsonify(result, 200)
@@ -511,7 +503,7 @@ def get_purchases(id):
         # return error message
         return jsonify({'error': str(e)},500)
     
-@app.route('/purchases/refund/<purchaseID>', methods=['PUT'])
+@app.route('/purchases/refund/<purchaseID>', methods=['GET'])
 def update_user_refund(purchaseID):
     try:
         # update user query message
@@ -536,7 +528,8 @@ def get_refunds(id):
         cursor.execute(query)
 
         query = """CREATE VIEW RefundsView AS
-                SELECT *
+                SELECT purchaseID, accountID, date, amount, 
+                (SELECT title FROM Movie WHERE Movie.movieID = Purchase.movieID) AS movieName
                 FROM Purchase
                 WHERE date LIKE '%REFUND%';"""
         

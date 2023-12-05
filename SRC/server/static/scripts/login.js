@@ -33,5 +33,6 @@ login.addEventListener("click", () => {
 });
 
 signUp.addEventListener("click", () => {
+    localStorage.setItem("signUp", "true");
     window.location.href = "/account";
 });
