@@ -37,39 +37,7 @@ def register():
 def movie():
     return render_template('/movie.html')
 
-# @app.route('/users', methods=['POST'])
-# def add_user():
-#     try:
-#         # retrieve user information from the front end
-#         data = request.get_json()
-
-#         # extract user details
-#         username = data.get('username')
-#         password = data.get('password')
-#         fname = data.get('firstName')
-#         lname = data.get('lastName')
-#         email = data.get('email')
-#         contact = data.get('contactNumber')
-#         cardNumber = data.get('cardNumber')
-#         cardExpiry = data.get('cardExpiry')
-#         cvv = data.get('cvv')
-
-#         # insert data into the database
-#         query = """INSERT INTO User 
-#         (username, password, firstName, lastName, email, contactNumber, cardNumber, cardExpiry, cvv) 
-#         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) """
-#         values = (username, password, fname, lname, email, contact, cardNumber, cardExpiry, cvv)
-#         cursor.execute(query, values)
-
-#         # commit changes
-#         db.commit()
-
-#         # return success message
-#         return jsonify({"message": "User created successfully"}, 200)
-#     except Exception as e:
-#         # handle errors
-#         return jsonify({"error": str(e)}, 500)
-
+#get all info from the users table
 @app.route('/users', methods=['GET'])
 def get_users():
     try:
@@ -85,6 +53,7 @@ def get_users():
         # return error message
         return jsonify({'error': str(e)}, 500)
 
+#check whether the person is a user or admin based on their password or username
 @app.route('/account/<userName>/<passWord>', methods=['GET'])
 def verify_add_user(userName, passWord):
     try:
@@ -144,39 +113,44 @@ def update_user(accountID, password, email, phoneNumber, cardNumber, cardExpiry,
         # handle errors
         return jsonify({"error": str(e)}, 500)
 
+# post purchase made by user id
+@app.route('/users/createUser/<username>/<password>/<fName>/<lName>/<email>/<phoneNumber>/<cardNumber>/<expiryDate>/<cvv>', methods=['GET'])
+def add_user(username, password, fName, lName, email, phoneNumber, cardNumber, expiryDate, cvv):
+    try:        
+        # insert data into the database
+        query = """INSERT INTO User (username, password, firstName, lastName, email, contactNumber, cardNumber, cardExpiry, cvv)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+        values = (username, password, fName, lName, email, phoneNumber, cardNumber, expiryDate, cvv)
+        cursor.execute(query, values)
+        db.commit()
+        return jsonify({"message": "User created Successsfully"}, 200)
+    except Exception as e:
+        # handle errors
+        return jsonify({"error": str(e)}, 500)
+
 # delete user account by username
-@app.route('/admin/deleteUser/<username>', methods=['DELETE'])
-def delete_user(username):
+@app.route('/admin/deleteUser/<ID>', methods=['GET'])
+def delete_user(ID):
     try:
+        query = "DELETE FROM Purchase WHERE accountID = %s;"
+        cursor.execute(query, (ID,))
+
         # delete user query message
-        query = "DELETE FROM User WHERE username = %s;"
+        query = "DELETE FROM User WHERE accountID = %s;"
         # execute query
-        cursor.execute(query, (username,))
+        cursor.execute(query, (ID,))
         # commit changes
         db.commit()
         # return success message
-        return jsonify({'message': 'Succesfilly deleted user!'}, 200)
+        return jsonify({'message': 'Succesfully deleted user!'}, 200)
     except Exception as e:
         # return error message
         return jsonify({'error': str(e)}, 500)
 
 
-@app.route('/movies/addMovie', methods=['POST'])
-def add_movie():
+@app.route('/movies/addMovie/<title>/<image>/<description>/<cast>/<director>/<duration>/<genre>/<ratings>/<trailer>', methods=['GET'])
+def add_movie(title, image, description, cast, director, duration, genre, ratings, trailer):
     try: 
-        # retrieve inforamtion from the front end
-        data = request.get_json()
-
-        # extract movie details
-        title = data.get('title')
-        image = data.get('image')
-        description = data.get('description')
-        cast = data.get('cast')
-        director = data.get('director')
-        duration = data.get('duration')
-        genre = data.get('genre')
-        ratings = data.get('ratings')
-        trailer = data.get('trailer')
             
         # insert data into the database
         query = """INSERT INTO Movie (title, image, description, cast, director, duration, genre, ratings, trailer) 
@@ -219,18 +193,11 @@ def check_username(username):
         return jsonify({"error": str(e)}, 500)
 
 #With movieID and date from front end, add a schedule for that with 50 seats in morning, afternoon, evening. 
-@app.route('/movies/addSchedule', methods=['POST'])
-def add_schedule():
-    try:
-        # retrieve inforamtion from the front end
-        data = request.get_json()
-
-        # extract movie details
-        movieID = data.get('movieID')
-        date = data.get('date')
-            
+@app.route('/movies/addSchedule/<movieID>/<date>', methods=['GET'])
+def add_schedule(movieID, date):
+    try:    
         # insert data into the database
-        query = """INSERT INTO Schedule (movieID, date, morning, afternoon, evening)) 
+        query = """INSERT INTO Schedule (movieID, date, morning, afternoon, evening) 
         VALUES (%s, %s, 50, 50, 50)"""
         values = (movieID, date)
         cursor.execute(query, values)
@@ -313,28 +280,28 @@ def add_seat(id, amount, date, time):
         # handle errors
         return jsonify({"error": str(e)}, 500)
 
-# with movie title, get all amount of tickets sold
-@app.route('/movies/ticketsSold/<title>', methods=['GET'])
-def get_tickets_sold(title):
+# with movie ID, get all amount of tickets sold
+@app.route('/movies/ticketsSold/<movieID>', methods=['GET'])
+def get_tickets_sold(movieID):
     try:
         query = """SELECT movie.title, SUM(Purchase.amount) AS total_sales FROM purchase INNER JOIN movie ON purchase.movieID = movie.movieID
-        WHERE movie.title LIKE %s
+        WHERE movie.movieID = %s
         GROUP BY movie.title;"""
-        cursor.execute(query, ('%'+title+'%',))
-        result = cursor.fetchall()
+        cursor.execute(query, (movieID, ))
+        result = cursor.fetchone()
         return jsonify(result, 200)
     except Exception as e:
         # return error message
         return jsonify({'error': str(e)},500)
 
-# with movie title, get all users who bought tickets
-@app.route('/movies/users/<title>', methods=['GET'])
-def get_ticket_users(title):
+# with movie ID, get all users who bought tickets
+@app.route('/movies/users/<movieID>', methods=['GET'])
+def get_ticket_users(movieID):
     try:
         query = """SELECT DISTINCT User.username FROM User INNER JOIN Purchase ON User.accountID = Purchase.accountID
         INNER JOIN Movie ON Purchase.movieID = Movie.movieID
-        WHERE Movie.title LIKE %s;"""
-        cursor.execute(query, ('%'+title+'%',))
+        WHERE Movie.MovieID = %s;"""
+        cursor.execute(query, (movieID,))
         result = cursor.fetchall()
         return jsonify(result, 200)
     except Exception as e:
@@ -359,12 +326,19 @@ def get_movies():
         return jsonify({'error': str(e)}, 500)
 
 # delete all users who havent bought tickets in the last year
-@app.route('/admin/deleteInactiveUsers', methods=['DELETE'])
+@app.route('/admin/deleteInactiveUsers', methods=['GET'])
 def delete_inactive_users():
     try:
         # delete inactive users query message
-        query = """DELETE FROM User WHERE accountID NOT IN ( SELECT DISTINCT accountID
-        FROM Purchase WHERE date >= CURDATE() - INTERVAL 1 YEAR);"""
+        query = """DELETE FROM User 
+                WHERE accountID NOT IN (
+                SELECT DISTINCT accountID
+                FROM Purchase 
+                WHERE (
+                DATE(STR_TO_DATE(
+                SUBSTRING_INDEX(SUBSTRING_INDEX(date, ',', 1), ' ', 1),
+                '%Y-%m-%d')) >= CURDATE() - INTERVAL 1 YEAR 
+                AND date NOT LIKE '%REFUND%'));"""
         # execute query
         cursor.execute(query)
         # commit changes
@@ -422,11 +396,13 @@ def delete_movie_schedule(id):
         return jsonify({'error': str(e)}, 500)
 
 # increase duration for horror movie by 2 minutes
-@app.route('/movies/updateDuration', methods=['PUT'])
+@app.route('/movies/increaseDuration', methods=['GET'])
 def update_duration():
     try:
         # update duration query message
-        query = """UPDATE Movie SET duration = duration + 2 WHERE genre = 'Horror';"""
+        query = """UPDATE Movie
+                SET duration = CONCAT(CAST(SUBSTRING_INDEX(duration, ' ', 1) AS SIGNED) + 2, ' min')
+                WHERE genre = 'Horror';"""
         # execute query
         cursor.execute(query)
         # commit changes
@@ -438,11 +414,13 @@ def update_duration():
         return jsonify({'error': str(e)}, 500)
 
 # decrease duration for horror movie by 2 minutes
-@app.route('/movies/updateDuration', methods=['PUT'])
+@app.route('/movies/decreaseDuration', methods=['GET'])
 def delete_duration():
     try:
         # update duration query message
-        query = """UPDATE Movie SET duration = duration - 2 WHERE genre = 'Horror';"""
+        query = """UPDATE Movie
+                SET duration = CONCAT(CAST(SUBSTRING_INDEX(duration, ' ', 1) AS SIGNED) - 2, ' min')
+                WHERE genre = 'Horror';"""
         # execute query
         cursor.execute(query)
         # commit changes
@@ -545,40 +523,41 @@ def get_refunds(id):
         return jsonify({'error': str(e)},500)
 
 # add schedule to movie
-@app.route('/movies/schedule', methods=['POST'])
-def add_schedule2():
-    try:
-        # retrieve inforamtion from the front end
-        data = request.get_json()
+# @app.route('/movies/schedule', methods=['POST'])
+# def add_schedule2():
+#     try:
+#         # retrieve inforamtion from the front end
+#         data = request.get_json()
 
-        # extract movie details
-        movieID = data.get('movieID')
-        date = data.get('date')
-        time1 = data.get('morning')
-        time2 = data.get('afternoon')
-        time3 = data.get('evening')
+#         # extract movie details
+#         movieID = data.get('movieID')
+#         date = data.get('date')
+#         time1 = data.get('morning')
+#         time2 = data.get('afternoon')
+#         time3 = data.get('evening')
             
-        # insert data into the database
-        query = """INSERT INTO Schedule (movieID, date, time1, time2, time3) 
-        VALUES (%s, %s, %s, %s, %s)"""
-        values = (movieID, date, time1, time2, time3)
-        cursor.execute(query, values)
-        db.commit()
-        return jsonify({"message": "Schedule created successfully"}, 200)
-    except Exception as e:
-        # handle errors
-        return jsonify({"error": str(e)}, 500)
+#         # insert data into the database
+#         query = """INSERT INTO Schedule (movieID, date, time1, time2, time3) 
+#         VALUES (%s, %s, %s, %s, %s)"""
+#         values = (movieID, date, time1, time2, time3)
+#         cursor.execute(query, values)
+#         db.commit()
+#         return jsonify({"message": "Schedule created successfully"}, 200)
+#     except Exception as e:
+#         # handle errors
+#         return jsonify({"error": str(e)}, 500)
 
-@app.route('/movies/schedule/<id>', methods=['GET'])
-def get_movie_schedule(id):
-    try:
-        query = """SELECT * FROM Schedule WHERE movieID = %s;"""
-        cursor.execute(query, (id,))
-        result = cursor.fetchall()
-        return jsonify(result, 200)
-    except Exception as e:
-        # return error message
-        return jsonify({'error': str(e)},500)
+# With MovieID, get all dates when movie is playing
+# @app.route('/movies/schedule/<id>', methods=['GET'])
+# def get_movie_schedule(id):
+#     try:
+#         query = """SELECT movieID, date FROM Schedule WHERE movieID = %s;"""
+#         cursor.execute(query, (id,))
+#         result = cursor.fetchall()
+#         return jsonify(result, 200)
+#     except Exception as e:
+#         # return error message
+#         return jsonify({'error': str(e)},500)
     
 @app.route('/testing/data', methods=['GET'])
 def get_data():

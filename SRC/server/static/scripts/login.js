@@ -2,13 +2,27 @@ let accountID = 0;
 
 const login = document.getElementById("loginBtn");
 const signUp = document.getElementById("signUpBtn");
+const errorLabel = document.getElementById("error");
+
+const uNameLabel = document.getElementById("uName");
+const passwordLabel = document.getElementById("password");
+
+uNameLabel.addEventListener("keydown", (event) => {
+    errorLabel.textContent = "";
+});
+
+passwordLabel.addEventListener("keydown", (event) => {
+    errorLabel.textContent = "";
+});
 
 login.addEventListener("click", () => {
     const uName = document.getElementById("uName");
     const password = document.getElementById("password");
 
     if (uName.value === "" || password.value === ""){
-        alert("Please enter a username and password");
+        errorLabel.textContent = "Please enter a username and password";
+        uName.value = "";
+        password.value = "";
         return;
     }
 
@@ -26,7 +40,9 @@ login.addEventListener("click", () => {
             window.location.href = "/homePage";
         }
         else {
-            alert("Invalid username or password")
+            errorLabel.textContent = "Invalid username or password";
+            uName.value = "";
+            password.value = "";
         }
     })
     .catch((err) => console.log(err));

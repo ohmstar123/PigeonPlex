@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/account.css') }}">
 </head>
-<body>
+<body class="scrollbar" id="scrollbar5">
     <div class="navbar">
         <div class="left-image logo-img">
             <img src="{{ url_for('static',filename='img/logo.png') }}" alt="Left Image" id="logo">
@@ -20,48 +20,92 @@
     </div>
     <div class="userInfo">
         <h1>Account Information</h1>
-        <form>
-            <label for="username">Username: </label>
-            <input type="text" id="username" name="username">
+        <div class="form-container">
+            <div>
+                <label for="username">Username: </label>
+                <input type="text" id="username" name="username">
+            </div>
 
-            <label for="password">Password: </label>
-            <input type="text" id="password" name="password">
+            <div>
+                <label for="firstName">First Name: </label>
+                <input type="text" id="firstName" name="firstName">
+            </div>
 
-            <label for="firstName">First Name: </label>
-            <input type="text" id="firstName" name="firstName">
+            <div>
+                <label for="lastName">Last Name: </label>
+                <input type="text" id="lastName" name="lastName">
+            </div>
 
-            <label for="lastName">Last Name: </label>
-            <input type="text" id="lastName" name="lastName">
+            <div>
+                <label for="phoneNumber">Phone Number: </label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" required>
+            </div>
 
-            <label for="email">Email: </label>
-            <input type="email" id="email" name="email">
+            <div>
+                <label for="email">Email: </label>
+                <input type="email" id="email" name="email">
+            </div>
 
-            <label for="phoneNumber">Phone Number: </label>
-            <input type="tel" id="phoneNumber" name="phoneNumber">
-        </form>
+            <div>
+                <label for="password">Password: </label>
+                <input type="text" id="password" name="password">
+            </div>
+        </div>
         <h1>Payment Information</h1>
-        <form>
-            <label for="cardNumber">Card Number: </label>
-            <input type="text" id="cardNumber" name="cardNumber">
+        <div class="form-container">
+            <div>
+                <label for="cardNumber">Card Number: </label>
+                <input type="text" id="cardNumber" name="cardNumber">
+            </div>
 
-            <label for="cardExpiry">Card Expiry (DD-MMM e.g. 12-Apr): </label>
-            <input type="text" id="cardExpiry" name="cardExpiry">
+            <div>
+                <label for="cardExpiry">Card Expiry (MM-YYYY e.g. 1/2027): </label>
+                <input type="month" id="cardExpiry" min="" required>
+            </div>
 
-            <label for="cvv">CVV: </label>
-            <input type="text" id="cvv" name="cvv">
-        </form>
+            <div>
+                <label for="cvv">CVV: </label>
+                <input type="text" id="cvv" name="cvv">
+            </div>
         <button id="saveBtn" class="save-btn">Save</button>
+        </div>
     </div>
-    <div class="purchase">
-        <h1>Purchase History</h1>
-        <ul id="moviesList" class="purchaseList">
-        </ul>
+    <div class="purchase" id="purchaseDiv">
+        <h1 id="purchaseTitle">Purchase History</h1>
+        <div class="purchaseDiv">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Purchase ID:</th>
+                        <th>Movie Name:</th>
+                        <th>Amount ($):</th>
+                        <th>Date (yyyy-mm-dd):</th>
+                        <th>Refund:</th>
+                    </tr>
+                </thead>
+                <tbody id="purchaseTable">
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="refund">
-        <h1>Refund History</h1>
-        <ul id="refundList" class="refundList">
-        </ul>
+    <div class="refund" id="refundDiv">
+        <h1 id="refundTitle">Refund History</h1>
+        <div class="refundDiv">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Purchase ID:</th>
+                        <th>Movie Name:</th>
+                        <th>Amount ($):</th>
+                        <th>Date (yyyy-mm-dd):</th>
+                    </tr>
+                </thead>
+                <tbody id="refundTable">
+                </tbody>
+            </table>
+        </div>
     </div>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="module" src="{{ url_for('static',filename='scripts/account.js') }}"></script>
 </body>
 </html>

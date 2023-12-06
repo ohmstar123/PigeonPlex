@@ -1,9 +1,3 @@
-@font-face {
-    font-family: 'YourFontName';
-    src: url('PoetsenOne-Regular.woff') format('woff');
-    font-display: swap;
-}
-
 body {
     margin: 0;
     padding: 0;
@@ -14,40 +8,31 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-image: url("../img/login_background.jpg");
     font-family: 'YourFontName', sans-serif;
 }
 
-h1{
-    color: #16425B;
+img{
+    height: 150px;
 }
 
-.blur::before {
-    content: ""; /* Create a pseudo-element */
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 100% 100%;
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
-    z-index: -1; /* Place the pseudo-element behind the content */
-}
-
-.blur {
-    position: relative;
+.blur-container {
     width: 40%;
-    height: 60vh;
-    text-align: center;
-    z-index: 1; /* Ensure the content is above the pseudo-element */
+    height: 60%;
+    background: rgba(255, 255, 255, 0);
+    border-radius: 16px;
+    box-shadow: 0 0px 40px rgba(5, 47, 141, 0.8);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(5.5px);
+}
+
+h1{
+    color: #D9DCD6;
 }
 
 .login {
     border-radius: 25px;
     position: relative;
-    background-color: #81C3D7;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     display: flex;
@@ -59,23 +44,26 @@ h1{
 .login input,
 .login button {
     font-family: 'YourFontName', sans-serif;
-    margin: 10px 0; /* Add some margin between the components */
+    margin: 10px 0;
 }
 
 .btns{
     margin: 10px 0;
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #16425B;
-    color: #fff;
-    border: none;
+    background: rgba(255, 255, 255, 0);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(5.5px);
+    color: #D9DCD6;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 1);
 }
 
 .btns:hover {
-    background-color: #122F41;
+    background-color: rgba(4, 20, 95, 0.6);
 }
 
 .login input {
@@ -83,12 +71,23 @@ h1{
     padding: 10px;
     margin: 8px 0;
     box-sizing: border-box;
-    border: 1px solid #16425B;
+    border: 1px solid #D9DCD6;
+    background-color: #040f3b;
+    color: #D9DCD6;
     border-radius: 5px;
+}
+
+.login input::placeholder {
+    color: #949593;
 }
 
 .login input:focus {
     outline: none;
     border-color: #122F41;
     box-shadow: 0 0 5px rgba(18, 47, 65, 0.5);
+}
+
+label{
+    color: crimson;
+    font-size: 15px;
 }

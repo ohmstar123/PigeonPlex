@@ -1,52 +1,60 @@
-@font-face {
-    font-family: 'YourFontName';
-    src: url('PoetsenOne-Regular.woff') format('woff');
-    font-display: swap;
-}
-
 .header {
-    background-color: #2F6690;
-    color: #fff;
+    background-color: #04145f;
+    color: #D9DCD6;
     padding: 10px 20px;
     text-align: center;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    box-shadow: 0 0px 60px rgb(5, 47, 141);
+}
+
+label, h3{
+    color: #D9DCD6;
+}
+
+input{
+    color: #D9DCD6;
+    background-color: #052f8d;
 }
 
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #16425B;
+    background-color: #040b27;;
 }
 
 h2 {
-    color: #333; /* Change the font color */
+    color: #D9DCD6; /* Change the font color */
     font-size: 24px; /* Change the font size */
     font-weight: bold; /* Make the font bold */
     text-align: center; /* Align the text to the center */
     margin-bottom: 20px; /* Add some space below the h1 */
 }
-.logout-button {
-    right: 0;
-    transform: translateY(-50%);
-    padding: 5px 20px;
-    background-color: #D9DCD6;
-    color: #000; /* Make text color black */
-    text-decoration: none;
-    border: none;
+
+button{
+    font-family: 'YourFontName', sans-serif;
+    margin: 10px 0;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #052f8d;
+    border: 1px solid #dcdcdc;
+    color: #D9DCD6;
     border-radius: 5px;
-    transition: background-color 0.3s;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.logout-button:hover {
-    background-color: #81C3D7;
+button:hover {
+    background-color: #000000;
 }
 
 .container {
     width: 80%;
     margin: 20px auto;
-    background-color: #D9DCD6;
+    background-color: #040f3b;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 40px rgba(5, 47, 141, 0.6);
     border-radius: 15px; /* Adjust this value to increase or decrease roundness */
     text-align: center;
 }
@@ -91,42 +99,6 @@ h2 {
     box-sizing: border-box;
     margin-bottom: 20px;
     margin-top: 5px; /* Add space between label and input field */
-}
-
-
-
-.search-button {
-    right: 0;
-    padding: 10px 20px;
-    background-color: #81C3D7;
-    color: #000; /* Make text color black */
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    font-weight: bold; /* Make text bold */
-    margin-bottom: 10px;
-}
-
-.search-button:hover {
-    background-color: #3A7CA5;
-}
-
-.add-button {
-    right: 0;
-    padding: 10px 20px;
-    background-color: #81C3D7;
-    color: #000; /* Make text color black */
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    font-weight: bold; /* Make text bold */
-    margin-bottom: 10px;
-}
-
-.add-button:hover {
-    background-color: #3A7CA5;
 }
 
 .schedule-functions{
@@ -207,12 +179,72 @@ th:nth-child(3) { width: 20%; }
 
 
 .scrollable-table {
-    max-height: 200px; /* Adjust this value as needed */
+    max-height: 400px; /* Adjust this value as needed */
     overflow-y: auto;
     margin-bottom: 20px;
-    border-radius: 15px;
+    box-shadow: 0 0 50px rgba(5, 47, 141, 0.8);
+}
+
+tbody {
+    background-color: #04145f;
+}
+
+thead {
+    background-color: #040f3b;
 }
 
 .displayTotalCount{
     margin-bottom: 10px;
 }
+
+table {
+    color: #D9DCD6;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%; /* Makes the table span the full width of its container */
+    table-layout: fixed; /* Ensures the table layout is fixed */
+    border-collapse: collapse; /* Optional: collapses the borders between cells */
+}
+
+th, td {
+    padding: 8px; /* Adjust padding to your preference */
+    text-align: left; /* Aligns text to the left, adjust as needed */
+    border: 1px solid #ddd; /* Optional: adds a border to cells */
+    word-wrap: break-word;
+}
+
+th {
+    background-color: #040f3b; /* Optional: styles the header cells */
+}
+
+tr {
+    background-color: #04145f;
+}
+
+tr:hover {
+    background-color: #052f8d;
+}
+
+::-webkit-calendar-picker-indicator {
+    color-scheme: dark;
+}
+
+#scrollbar5::-webkit-scrollbar {
+    background-color: transparent;
+    width: 12px;
+    border-radius: 10px;
+  }
+  
+  #scrollbar5::-webkit-scrollbar-track {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
+  }
+  
+  #scrollbar5::-webkit-scrollbar-thumb {
+    background-image: -webkit-linear-gradient(
+      bottom,
+      #0962b3 50%,
+      #040f3b 100%
+    );
+    border-radius: 10px;
+  }

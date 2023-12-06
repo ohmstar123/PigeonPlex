@@ -3,46 +3,106 @@ let signUp = localStorage.getItem("signUp");
 
 document.addEventListener('DOMContentLoaded', loadData)
 
+document.getElementById("cardExpiry").addEventListener('change', () => {console.log(document.getElementById("cardExpiry").value)});
+
 document.getElementById("saveBtn").addEventListener('click', () => {
-    console.log("test");
-    const password = document.getElementById("password");
-    const email = document.getElementById("email");
-    const phone = document.getElementById("phoneNumber");
-    const cardNumber = document.getElementById("cardNumber");
-    const cardExpiration = document.getElementById("cardExpiry");
-    const cvv = document.getElementById("cvv");
+    if (signUp === "true"){
+        const username = document.getElementById("username");
+        const password = document.getElementById("password");
+        const firstName = document.getElementById("firstName");
+        const lastName = document.getElementById("lastName");
+        const email = document.getElementById("email");
+        const phone = document.getElementById("phoneNumber");
+        const cardNumber = document.getElementById("cardNumber");
+        const cardExpiration = document.getElementById("cardExpiry");
+        const cvv = document.getElementById("cvv");
 
-    if (password.value === "" || email.value === "" || phone.value === "" || cardNumber.value === "" || cardExpiration.value === "" || cvv.value === ""){
-        alert("Please fill out all fields");
-        return;
-    }
-    if (phone.value.length !== 10){
-        alert("Please enter a valid phone number");
-        return;
-    }
-    if (cardNumber.value.length !== 16){
-        alert("Please enter a valid card number");
-        return;
-    }
-    if (cvv.value.length !== 3){
-        alert("Please enter a valid cvv");
-        return;
-    }
-    if (cardExpiration.value.length !== 6){
-        alert("Please enter a valid card expiration date");
-        return;
-    }
+        const numTest = /^[0-9]+$/;
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    fetch(`/users/updateInfo/${accountID}/${password.value}/${email.value}/${phone.value}/${cardNumber.value}/${cardExpiration.value}/${cvv.value}`)
-    .then((res) => res.json())
-    .then((data) => {
-        console.log(data);
-        loadData();
-        alert("Account information updated");
-    })
-    .catch((error) => {
-        console.log(error);
-    })
+        if (username.value === "" || password.value === "" || firstName.value === "" || lastName.value === "" || email.value === "" || phone.value === "" || cardNumber.value === "" || cardExpiration.value === "" || cvv.value === ""){
+            swal("Empty Fields", "Please fill out all fields", "warning");
+            return;
+        }
+        if (phone.value.length !== 10 || !numTest.test(phone.value)){
+            swal("Invalid Phone Number", "Please enter a valid phone number", "warning");
+            return;
+        }
+        if (cardNumber.value.length !== 16 || !numTest.test(cardNumber.value)){
+            swal("Invalid Card Number", "Please enter a valid card number", "warning");
+            return;
+        }
+        if (cvv.value.length !== 3 || !numTest.test(cvv.value)){
+            swal("Invalid CVV", "Please enter a valid cvv", "warning");
+            return;
+        }
+        if (password.value.length < 8){
+            swal("Invalid Password", "Password must be at least 8 characters long", "warning");
+            return;
+        }
+        if (!emailPattern.test(email.value)){
+            swal("Invalid Email", "Please enter a valid email", "warning");
+            return;
+        }
+
+        fetch(`/users/createUser/${username.value}/${password.value}/${firstName.value}/${lastName.value}/${email.value}/${phone.value}/${cardNumber.value}/${cardExpiration.value}/${cvv.value}`)
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data);
+            swal("Account Created", "Your account information has been added to the database", "success");
+            window.location.href = "/login"
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+    else{
+        const password = document.getElementById("password");
+        const email = document.getElementById("email");
+        const phone = document.getElementById("phoneNumber");
+        const cardNumber = document.getElementById("cardNumber");
+        const cardExpiration = document.getElementById("cardExpiry");
+        const cvv = document.getElementById("cvv");
+
+        const numTest = /^[0-9]+$/;
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        if (username.value === "" || password.value === "" || firstName.value === "" || lastName.value === "" || email.value === "" || phone.value === "" || cardNumber.value === "" || cardExpiration.value === "" || cvv.value === ""){
+            swal("Empty Fields", "Please fill out all fields", "warning");
+            return;
+        }
+        if (phone.value.length !== 10 || !numTest.test(phone.value)){
+            swal("Invalid Phone Number", "Please enter a valid phone number", "warning");
+            return;
+        }
+        if (cardNumber.value.length !== 16 || !numTest.test(cardNumber.value)){
+            swal("Invalid Card Number", "Please enter a valid card number", "warning");
+            return;
+        }
+        if (cvv.value.length !== 3 || !numTest.test(cvv.value)){
+            swal("Invalid CVV", "Please enter a valid cvv", "warning");
+            return;
+        }
+        if (password.value.length < 8){
+            swal("Invalid Password", "Password must be at least 8 characters long", "warning");
+            return;
+        }
+        if (!emailPattern.test(email.value)){
+            swal("Invalid Email", "Please enter a valid email", "warning");
+            return;
+        }
+
+        fetch(`/users/updateInfo/${accountID}/${password.value}/${email.value}/${phone.value}/${cardNumber.value}/${cardExpiration.value}/${cvv.value}`)
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data);
+            loadData();
+            swal("Account Updated", "Your account information has been updated", "success");
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
 })
 
 document.getElementById("account").addEventListener('click', () => {
@@ -66,7 +126,7 @@ document.addEventListener('click', function(event) {
         .then((data) => {
             console.log(data);
             loadData();
-            alert("Refund successful");
+            swal("Refund Successful", "Your refund has been processed", "success");
         })
         .catch((error) => {
             console.log(error);
@@ -75,7 +135,29 @@ document.addEventListener('click', function(event) {
 });
 
 async function loadData() {
+    // Get the current date
+    const today = new Date();
+    
+    // Set the minimum value of the input to the current month and year
+    const currentMonth = (today.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because getMonth() returns zero-based month
+    const currentYear = today.getFullYear().toString();
+    const minDate = `${currentYear}-${currentMonth}`;
+
+    console.log(minDate);
+    
+    // Set the minimum attribute of the input
+    document.getElementById('cardExpiry').min = minDate;
+    document.getElementById('cardExpiry').value = minDate;
+
     if (signUp === "true"){
+        const purchaseTitle = document.getElementById("purchaseDiv");
+        const refundTitle = document.getElementById("refundDiv");
+        purchaseTitle.style.display = "none";
+        refundTitle.style.display = "none";
+
+        const btn = document.getElementById("saveBtn");
+        btn.textContent = "Sign Up!";
+
         const username = document.getElementById("username");
         const password = document.getElementById("password");
         const firstName = document.getElementById("firstName");
@@ -134,32 +216,35 @@ async function loadData() {
         .then((data) => {
             console.log(data);
             
-            const movieList = document.getElementById("moviesList");
-            while (movieList.firstChild) {
-                movieList.removeChild(movieList.firstChild);
+            const purchaseTable = document.getElementById("purchaseTable");
+            while (purchaseTable.firstChild) {
+                purchaseTable.removeChild(purchaseTable.firstChild);
             }
             for (let index of data[0]){
                 console.log(index);
-                let li = document.createElement("li");
-                li.className = "purchase-card";
-                let h3 = document.createElement("h3");
-                h3.textContent = `Purchase ID: ${index[0]}`;
-                let h3second = document.createElement("h3");
-                h3second.textContent = `Movie Name: ${index[3]}`;
-                let h3third = document.createElement("h3");
-                h3third.textContent = `Amount: $${index[2]}`;
-                let h3fourth = document.createElement("h3");
-                h3fourth.textContent = `Date: ${index[1]}`;
+                let tr = document.createElement("tr");
+                let td = document.createElement("td");
+                let td2 = document.createElement("td");
+                let td3 = document.createElement("td");
+                let td4 = document.createElement("td");
+                let td5 = document.createElement("td");
                 let btn = document.createElement("button");
                 btn.className = "refund-btn";
                 btn.id = index[0];
                 btn.textContent = "Refund";
-                li.appendChild(h3);
-                li.appendChild(h3second);
-                li.appendChild(h3third);
-                li.appendChild(h3fourth);
-                li.appendChild(btn);
-                movieList.appendChild(li);
+
+                td.textContent = index[0];
+                td2.textContent = index[3];
+                td3.textContent = index[2];
+                let date = index[1].split(" ");
+                td4.textContent = date[0];
+                td5.appendChild(btn);
+                tr.appendChild(td);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+                tr.appendChild(td4);
+                tr.appendChild(td5);
+                purchaseTable.appendChild(tr);
             }
         })
         .catch((error) => {
@@ -170,28 +255,28 @@ async function loadData() {
         .then((res) => res.json())
         .then((data) => {
             console.log(data);
-            const refundList = document.getElementById("refundList");
+            const refundList = document.getElementById("refundTable");
             while (refundList.firstChild) {
                 refundList.removeChild(refundList.firstChild);
             }
             for (let index of data[0]){
                 console.log(index);
-                let li = document.createElement("li");
-                li.className = "refund-card";
-                let h3 = document.createElement("h3");
-                h3.textContent = `Refund ID: ${index[0]}`;
-                let h3second = document.createElement("h3");
-                h3second.textContent = `Movie Name: ${index[4]}`;
-                let h3third = document.createElement("h3");
-                h3third.textContent = `Amount: $${index[3]}`;
-                let h3fourth = document.createElement("h3");
+                let tr = document.createElement("tr");
+                let td = document.createElement("td");
+                let td2 = document.createElement("td");
+                let td3 = document.createElement("td");
+                let td4 = document.createElement("td");
+
+                td.textContent = index[0];
+                td2.textContent = index[4];
+                td3.textContent = index[3];
                 let date = index[2].split(",");
-                h3fourth.textContent = `Date: ${date[0]}`;
-                li.appendChild(h3);
-                li.appendChild(h3second);
-                li.appendChild(h3third);
-                li.appendChild(h3fourth);
-                refundList.appendChild(li);
+                td4.textContent = date[0];
+                tr.appendChild(td);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+                tr.appendChild(td4);
+                refundList.appendChild(tr);
             }
         })
         .catch((error) => {
