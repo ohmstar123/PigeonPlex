@@ -226,7 +226,7 @@ document.getElementById("delete-user").addEventListener('click', () => {
 });
 //////////////////////////////////////////////////////////
 document.getElementById("deleteUsers").addEventListener('click', () => {
-    fetch(`/admin/deleteUsers`)
+    fetch(`/admin/deleteInactiveUsers`)
     .then((res) => res.json())
     .then((data) => {
         console.log(data);

@@ -331,14 +331,11 @@ def delete_inactive_users():
     try:
         # delete inactive users query message
         query = """DELETE FROM User 
-                WHERE accountID NOT IN (
-                SELECT DISTINCT accountID
-                FROM Purchase 
-                WHERE (
-                DATE(STR_TO_DATE(
-                SUBSTRING_INDEX(SUBSTRING_INDEX(date, ',', 1), ' ', 1),
-                '%Y-%m-%d')) >= CURDATE() - INTERVAL 1 YEAR 
-                AND date NOT LIKE '%REFUND%'));"""
+                    WHERE accountID NOT IN (SELECT DISTINCT accountID FROM Purchase WHERE (CASE WHEN LOCATE(',', date) > 0 AND date NOT LIKE '%undefined%' 
+                    THEN STR_TO_DATE(NULLIF(SUBSTRING_INDEX(SUBSTRING_INDEX(date, ',', 1), ' ', -1), ''), '%Y-%m-%d') WHEN date NOT LIKE '%undefined%' THEN STR_TO_DATE(NULLIF(SUBSTRING_INDEX(date, ' ', 1), ''), '%Y-%m-%d')
+                    END IS NOT NULL AND CASE WHEN LOCATE(',', date) > 0 AND date NOT LIKE '%undefined%' THEN STR_TO_DATE(NULLIF(SUBSTRING_INDEX(SUBSTRING_INDEX(date, ',', 1), ' ', -1), ''), '%Y-%m-%d')
+                    WHEN date NOT LIKE '%undefined%' THEN STR_TO_DATE(NULLIF(SUBSTRING_INDEX(date, ' ', 1), ''), '%Y-%m-%d') END >= CURDATE() - INTERVAL 1 YEAR AND date NOT LIKE '%REFUND%')
+                    );"""
         # execute query
         cursor.execute(query)
         # commit changes
